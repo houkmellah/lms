@@ -12,9 +12,9 @@ import axios from 'axios';
 import {useRouter} from "next/router"
 import { toast } from "react-toastify";
 
+
 // A controler 
 
-import user from "../../server/models/user";
 
 
 
