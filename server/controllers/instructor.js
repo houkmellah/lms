@@ -35,3 +35,19 @@ export const makeInstructor = async (req, res) => {
     console.log("MAKE INSTRUCTOR ERR", err);
 }
 }
+
+export const getAccountStatus = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).exec();
+        const account = await stripe.accounts.retrieve(user.stripe_account_id);
+        console.log('ACCOUNT =>', account)
+        return; 
+        if (!account.chargers_enabled) {
+            return res.staus(401).send("Unauthorized")
+        } else {
+            //
+        } 
+    }catch (err) {
+        console.log(err);
+    }
+}

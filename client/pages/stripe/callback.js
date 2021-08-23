@@ -15,7 +15,7 @@ const StripeCallback = () => {
     return (
         <SyncOutlined
             spin
-            // className="d-flex justify-content-center display-1 text-danger p-5"
+            className="d-flex justify-content-center display-1 text-danger p-5"
         />
         
     )
