@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 const ForgotPassword = () => {
     //state 
     const [email, setEmail] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState(false);
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -24,6 +24,8 @@ const ForgotPassword = () => {
         if (user !== null) router.push('/')
         
     }, [])
+        //Formulaire 1: Envoie Code 
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -31,6 +33,27 @@ const ForgotPassword = () => {
             const { data } = await axios.post('/api/forgot-password', { email });
             setSuccess(true)
             toast("Check your email for the secret code")
+            setLoading(false);
+        } catch (err) {
+            setLoading(false)
+            toast(err.response.data)
+        }
+    };
+
+    //Formulaire 3: Reset Password 
+
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        
+        
+        try {
+            
+            const { data } = await axios.post('/api/reset-password', {email,code,newPassword,});
+            setEmail('');
+            setCode('');
+            setNewPassword('');
+            // setLoading(false);
+            toast("Great ! Now you can login with your password")
         } catch (err) {
             setLoading(false)
             toast(err.response.data)
@@ -42,18 +65,42 @@ const ForgotPassword = () => {
                 Forgot Password
             </h1>
             <div className="container col-md-4 offset-md-4 p-">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={success ? handleResetPassword : handleSubmit}>
                     <input
                         type="email"
                         className="form-control mb-4 p-4"
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter email"
                         required
                     />
+                    {success &&
+                        (<>
+                        <input
+                        type="text"
+                        className="form-control mb-4 p-4"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        placeholder="Enter secret code"
+                        required
+                    />
+                    <input
+                        type="password"
+                        className="form-control mb-4 p-4"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="New Password"
+                        required
+                    />
+                    </>)}
                     <br />
-                    <button type="submit" className="btn btn-primary btn-block p-2" disabled={loading || !email}>
-                    {loading ? <h1>loading</h1> : "Submit"}
+                    <button
+                        type="submit"
+                        className="btn btn-primary btn-block p-2"
+                        disabled={loading || !email}
+                    >
+                        {loading ? <SyncOutlined spin/> : "Submit"} 
+                        
                     </button>
                     
                 </form>
