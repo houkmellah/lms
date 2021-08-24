@@ -33,8 +33,7 @@ const TopNav = () => {
 
     useEffect(() => {
         process.browser && setCurrent(window.location.pathname);
-        
-    }, [process.browser && window.location.pathname])
+        }, [process.browser && window.location.pathname])
     
     const logout = async () => {
         dispatch({ type: "LOGOUT" }); // Executer le reducer LOGOUT 
@@ -49,7 +48,7 @@ const TopNav = () => {
 
     return (
         
-        <Menu mode="horizontal" selectedKeys={[current]}>
+        <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
             <Item
                 key="/"
                 onClick={(e) => setCurrent(e.key)}
@@ -79,7 +78,7 @@ const TopNav = () => {
                     </Link>
                 </Item>    
             )}
-
+            
             {user === null &&(  // Si l'utilisateur n'est pas disponnible 
                 <>
                     <Item
@@ -124,6 +123,18 @@ const TopNav = () => {
                     </ItemGroup>
                 </SubMenu>
                 
+            )}
+            {user && user.role && user.role.includes("Instructor") && (
+                <Item
+                    key="/instructor"
+                    onClick={(e) => setCurrent(e.key)}
+                    icon={<TeamOutlined />}
+                    className="float-right"
+                >
+                    <Link href="/instructor">
+                        <a>Instructor</a>
+                    </Link>
+                </Item>  
             )}
         </Menu>
     );

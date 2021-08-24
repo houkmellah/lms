@@ -41,13 +41,40 @@ export const getAccountStatus = async (req, res) => {
         const user = await User.findById(req.user._id).exec();
         const account = await stripe.accounts.retrieve(user.stripe_account_id);
         console.log('ACCOUNT =>', account)
-        return; 
-        if (!account.chargers_enabled) {
-            return res.staus(401).send("Unauthorized")
+        if (!account.charges_enabled) { 
+            return res.status(401).send("Unauthorized")
         } else {
-            //
-        } 
-    }catch (err) {
+            const statusUpdated = await User.findByIdAndUpdate(
+                user._id,
+                {
+                stripe_seller: account,
+                $addToSet: { role: "Instructor" },
+                
+                },
+                { new: true }
+            )
+                .select("-password")
+                .exec();
+       
+        res.json(statusUpdated)
+        }
+        
+    } catch (err) {
         console.log(err);
     }
+}
+
+export const currentInstructor = async (req, res) => {
+    try {
+        let user = await User.findById(req.user._id).select("-password").exec();
+        if (!user.role.includes('Instructor')) {
+            return res.sendStatus(403);
+
+        } else {
+            res.json({ ok: true });
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
 }
