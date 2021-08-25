@@ -106,7 +106,6 @@ const TopNav = () => {
                 <SubMenu
                     icon={<CoffeeOutlined />}
                     title={user && user.name}
-                    className="float-right"
                     
                 >
                     
@@ -129,7 +128,7 @@ const TopNav = () => {
                     key="/instructor"
                     onClick={(e) => setCurrent(e.key)}
                     icon={<TeamOutlined />}
-                    className="float-right"
+                    className="float-end"
                 >
                     <Link href="/instructor">
                         <a>Instructor</a>
