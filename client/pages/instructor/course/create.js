@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import InstructorRoute from '../../../components/routes/InstructorRoute';
 import axios from 'axios';
 import CourseCreateForm from '../../../components/forms/CourseCreateForm';
 import Resizer from 'react-image-file-resizer'
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
+import {useRouter} from "next/router"
 
 
 
@@ -12,7 +13,7 @@ const CourseCreate = () => {
     const [values, setValues] = useState({
         name: '',
         description: '',
-        price: '9,99',
+        price: '9.99',
         uploading: false,
         paid: true,
         category: '',
@@ -24,6 +25,10 @@ const CourseCreate = () => {
     const [image, setImage] = useState({})
     const [preview, setPreview] = useState('')
     const [uploadButtonText, setUploadButtonText] = useState('Upload Image')
+
+
+    // Router 
+    const router = useRouter()
 
     const handleChange = (e) => {
         setValues({...values, [e.target.name] : e.target.value})
@@ -72,7 +77,19 @@ const CourseCreate = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log(values)
+        try {
+            const { data } = await axios.post("/api/course", { 
+                ...values,
+                image,
+            });
+            toast("Great! Now you can start adding lessons")
+            router.push("/instructor")
+            
+        } catch (err) {
+            toast(err.response.data)
+        }
+        
+        
        
         
 
