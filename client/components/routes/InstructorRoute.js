@@ -1,7 +1,7 @@
 import { useEffect , useState  } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { SyncOutilned } from "@ant-design/icons";
+import { SyncOutlined } from "@ant-design/icons";
 import InstructorNav from "../../components/nav/InstructorNav";
 
 
@@ -34,11 +34,11 @@ const InstructorRoute = ({children}) => {
         
         <>    
             {!ok ?(
-                // <SyncOutilned
-                //     spin
-                //     className="d-flex justify-content-center diplay-1 text-primary p-5"
-                // />
-                <h1>Hello</h1>
+                <SyncOutlined
+                    spin
+                    className="d-flex justify-content-center diplay-1 text-primary p-5"
+                />
+                
             ) : (
                     <div className="container-fluid">
                         <div className="row">

@@ -114,9 +114,9 @@ const CourseCreate = () => {
                     handleImageRemove={handleImageRemove}
                 />
             </div>
-            <pre>{JSON.stringify(values, null, 4)}</pre>
+            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
             <hr />
-            <pre>{JSON.stringify(image, null, 4)}</pre>
+            {/* <pre>{JSON.stringify(image, null, 4)}</pre> */}
             
         </InstructorRoute>
     )

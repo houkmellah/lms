@@ -14,14 +14,22 @@ const AddLessonForm = ({
 }) => {
     return <div className="container pt-3">
         <form onSubmit={handleAddLesson}>
-            <input type="text" className="form-control square" onChange={e => setValues({ ...values, title: e.target.value })} values={values.title} placeholder="Title" autoFocus required />
+            <input
+                type="text"
+                className="form-control square"
+                onChange={e => setValues({ ...values, title: e.target.value })}
+                value={values.title}
+                placeholder="Title"
+                autoFocus required
+            />
             <textarea className="form-control mt-3 "
                 cols="7"
                 rows="7"
                 onChange={e => setValues({ ...values, content: e.target.value })}
-                values={values.content}
+                value={values.content}
                 placeholder="Content"
             ></textarea>
+
             <div className="d-flex justify-content-center">
                 <label className="btn btn-dark btn-block text-left mt-3">
                     {uploadButtonText} 
@@ -39,12 +47,13 @@ const AddLessonForm = ({
             
 
 
-            {progress > 0 && 
+            {progress > 0 && (
                 <Progress
                 className="d-flex justify-content-center pt-2"
                 percent={progress}
                 steps={10}
-            />
+            />)
+                
             }
             <Button onClick={handleAddLesson} className="col mt-3" size="large" type="primary" loading={uploading} shape="round">
                 Save

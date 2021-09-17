@@ -22,7 +22,7 @@ const lessonSchema = new mongoose.Schema({
         minlength: 200,
 
     },
-    video_link: {},
+    video: {},
     free_preview: {
         type: Boolean,
         default: false, 
@@ -64,7 +64,7 @@ const courseSchema = new mongoose.Schema({
         type: Boolean,
         default: true, 
     },
-    instructor: {
+    instructor : {
         type: ObjectId,
         ref: "User",
         required: true, 

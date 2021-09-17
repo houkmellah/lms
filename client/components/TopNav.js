@@ -48,7 +48,7 @@ const TopNav = () => {
 
     return (
         
-        <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
+        <Menu theme="dark" mode="horizontal" selectedKeys={[current]} className="mb-2">
             <Item
                 key="/"
                 onClick={(e) => setCurrent(e.key)}
@@ -82,7 +82,8 @@ const TopNav = () => {
             {user === null &&(  // Si l'utilisateur n'est pas disponnible 
                 <>
                     <Item
-                        key="/login"
+                        className="float-right"
+                        key="/register"
                         onClick={(e) => setCurrent(e.key)}
                         icon={<LoginOutlined />}>
                         <Link href="/login">
@@ -106,6 +107,7 @@ const TopNav = () => {
                 <SubMenu
                     icon={<CoffeeOutlined />}
                     title={user && user.name}
+                    className="float-right"
                     
                 >
                     
@@ -128,7 +130,7 @@ const TopNav = () => {
                     key="/instructor"
                     onClick={(e) => setCurrent(e.key)}
                     icon={<TeamOutlined />}
-                    className="float-end"
+                    className="float-right"
                 >
                     <Link href="/instructor">
                         <a>Instructor</a>
